@@ -1,0 +1,287 @@
+<div style="padding-right: 15px" class="container-fluid">
+  <!-- form header -->
+  <div class="row">
+    <div class="col">
+      <h1>Template Driven Forms</h1>
+      <hr />
+    </div>
+  </div>
+
+  <!-- main form -->
+  <div class="row">
+    <form action="" style="width: 100%" #myForm="ngForm" autocomplete="off">
+      <div class="col">
+        <!-- personal info -->
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label for="fnText">First Name</label>
+              <input
+                #firstName="ngModel"
+                type="text"
+                [ngClass]="{
+                  'form-control': true,
+                  'is-invalid': !firstName?.valid && firstName?.touched,
+                  'is-valid': firstName?.valid && firstName?.touched
+                }"
+                id="fnText"
+                placeholder="Enter first name"
+                name="firstName"
+                ngModel
+                required
+                minlength="2"
+              />
+              <small
+                id="fnHelp"
+                *ngIf="firstName?.errors?.minlength && firstName?.touched"
+                class="form-text custom-invalid-feedback"
+                >Required atleast 2 characters</small
+              >
+              <small
+                id="fnHelp"
+                *ngIf="firstName?.errors?.required && firstName?.touched"
+                class="form-text custom-invalid-feedback"
+                >Field is required</small
+              >
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              <label for="lnText">Last Name</label>
+              <input
+                #lastName="ngModel"
+                type="text"
+                [ngClass]="{
+                  'form-control': true,
+                  'is-invalid': !lastName?.valid && lastName?.touched,
+                  'is-valid': lastName?.valid && lastName?.touched
+                }"
+                id="lnText"
+                placeholder="Enter last name"
+                name="lastName"
+                ngModel
+                required
+                minlength="2"
+              />
+              <small
+                id="fnHelp"
+                *ngIf="lastName?.errors?.minlength && lastName?.touched"
+                class="form-text custom-invalid-feedback"
+                >Required atleast 2 characters</small
+              >
+              <small
+                id="fnHelp"
+                *ngIf="lastName?.errors?.required && lastName?.touched"
+                class="form-text custom-invalid-feedback"
+                >Field is required</small
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- seperator -->
+        <div class="row">
+          <div class="col">
+            <hr />
+          </div>
+        </div>
+
+        <!-- address form portion -->
+        <div class="row" ngModelGroup="address">
+          <div class="col-12">
+            <label for="" class="form-check-inline">Choose Type</label>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                ngModel
+                #addressType="ngModel"
+                required
+                [ngClass]="{
+                  'form-check-input': true,
+                  'is-invalid': !addressType?.valid && addressType?.touched,
+                  'is-valid': addressType?.valid && addressType?.touched
+                }"
+                name="addressType"
+                id="inlineRadio1"
+                value="permanent"
+              />
+              <label class="form-check-label" for="inlineRadio1"
+                >Permanent</label
+              >
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                ngModel
+                #addressType="ngModel"
+                [ngClass]="{
+                  'form-check-input': true,
+                  'is-invalid': !addressType?.valid && addressType?.touched,
+                  'is-valid': addressType?.valid && addressType?.touched
+                }"
+                required
+                name="addressType"
+                id="inlineRadio2"
+                value="correspondance"
+              />
+              <label class="form-check-label" for="inlineRadio2"
+                >Correspondance</label
+              >
+            </div>
+            <small
+              *ngIf="addressType?.errors?.required && addressType?.touched"
+              class="form-check-inline form-text custom-invalid-feedback"
+              >Pick one option.</small
+            >
+          </div>
+          <div class="col-12">
+            <div class="form-group">
+              <label for="addText">Street Address</label>
+              <input
+                #streetAddress="ngModel"
+                type="text"
+                [ngClass]="{
+                  'form-control': true,
+                  'is-invalid': !streetAddress?.valid && streetAddress?.touched,
+                  'is-valid': streetAddress?.valid && streetAddress?.touched
+                }"
+                id="addText"
+                placeholder="Enter street address"
+                ngModel
+                name="streetAddress"
+                required
+                minlength="2"
+              />
+              <small
+                id="fnHelp"
+                *ngIf="
+                  streetAddress?.errors?.minlength && streetAddress?.touched
+                "
+                class="form-text custom-invalid-feedback"
+                >Required atleast 2 characters</small
+              >
+              <small
+                id="fnHelp"
+                *ngIf="
+                  streetAddress?.errors?.required && streetAddress?.touched
+                "
+                class="form-text custom-invalid-feedback"
+                >Field is required</small
+              >
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="city">City</label>
+                  <input
+                    #city="ngModel"
+                    required
+                    type="text"
+                    [ngClass]="{
+                      'form-control': true,
+                      'is-invalid': !city?.valid && city?.touched,
+                      'is-valid': city?.valid && city?.touched
+                    }"
+                    id="city"
+                    placeholder="Enter city"
+                    ngModel
+                    name="city"
+                  />
+                  <small
+                    *ngIf="city?.errors?.required && city?.touched"
+                    class="form-text custom-invalid-feedback"
+                    >Field is required</small
+                  >
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="state">State</label>
+                  <select
+                    #state="ngModel"
+                    required
+                    id="inputState"
+                    [ngClass]="{
+                      'form-control': true,
+                      'is-invalid': !state?.valid && state?.touched,
+                      'is-valid': state?.valid && state?.touched
+                    }"
+                    ngModel
+                    name="state"
+                  >
+                    <option selected>Choose...</option>
+                    <option *ngFor="let item of states" [value]="item">
+                      {{ item }}
+                    </option>
+                  </select>
+                  <small
+                    *ngIf="state?.errors?.required && state?.touched"
+                    class="form-text custom-invalid-feedback"
+                    >Field is required</small
+                  >
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="zipcode">Zip Code</label>
+                  <input
+                    #zipcode="ngModel"
+                    type="text"
+                    [ngClass]="{
+                      'form-control': true,
+                      'is-invalid': !zipcode?.valid && zipcode?.touched,
+                      'is-valid': zipcode?.valid && zipcode?.touched
+                    }"
+                    id="zipcode"
+                    placeholder="Enter city"
+                    ngModel
+                    name="zipcode"
+                    appZipValidator
+                  />
+                  <small
+                    id="fnHelp"
+                    *ngIf="zipcode?.errors?.cus_required && zipcode?.touched"
+                    class="form-text custom-invalid-feedback"
+                    >{{zipcode?.errors?.cus_required}}</small
+                  >
+                  <small
+                    style="font-size: 10px;"
+                    id="fnHelp"
+                    *ngIf="zipcode?.errors?.cus_pattern && zipcode?.touched"
+                    class="form-text custom-invalid-feedback"
+                    >{{zipcode?.errors?.cus_pattern}}</small
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- seperator -->
+        <div class="row">
+          <div class="col">
+            <hr />
+          </div>
+        </div>
+
+        <!-- final action buttons -->
+        <div class="row justify-content-center">
+          <div class="col-2">
+            <button
+              type="button"
+              class="btn btn-primary"
+              (click)="submitHandler(myForm)"
+              [disabled]="!myForm.form.valid"
+            >
+              Submit
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
